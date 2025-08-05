@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quero Falar com Você</title> 
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #ffc1cc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .screen {
+      display: none;
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      animation: fade 0.6s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .screen h2 {
+      margin-bottom: 20px;
+      color: #d6336c;
+    }
+
+    .screen p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ad1457;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #aaa;
+    }
+
+    .carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .carousel img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: opacity 0.5s ease;
+    }
+
+    button.prev,
+    button.next {
+      background: none;
+      font-size: 1.5em;
+      color: #d6336c;
+      border: none;
+      cursor: pointer;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="tela1" class="screen active">
+    <h2>Oi...</h2>
+    <p>Preciso te dizer algo.</p>
+    <button onclick="proximaTela('1b')">Próximo</button>
+  </div>
+
+  <div id="tela1b" class="screen">
+    <h2>Sei que não gosta de coisas longas...</h2>
+    <p>Quero apenas te pedir desculpas, pela forma como falei com você. Sei que isso te trouxe uma chateação horrível.
+       Eu entendi como eu te magoei, como isso te deixou mal, e custou muito caro emocionalmente.</p>
+    <button onclick="proximaTela(2)">Próximo</button>
+  </div>
+
+  <div id="tela2" class="screen">
+    <h2>Confissão</h2>
+    <p>Eu sinto saudades do teu cheiro... esses dias senti falta do jm.</p>
+    <button onclick="proximaTela(3)">Próximo</button>
+  </div>
+
+  <div id="tela3" class="screen">
+    <h2>Posso te mostrar algo?</h2>
+    <button onclick="proximaTela(4)">Sim</button>
+    <button onclick="proximaTela(5)">Não</button>
+  </div>
+
+  <div id="tela4" class="screen">
+    <h2>Olha só ❤️</h2>
+    <div class="carousel">
+      <button class="prev" onclick="mudarImagem(-1)">◀️</button>
+      <img id="imagemGaleria" src="https://via.placeholder.com/300x400?text=Foto+1" alt="Foto romântica">
+      <button class="next" onclick="mudarImagem(1)">▶️</button>
+    </div>
+    <p>Esses foram alguns dos nossos melhores momentos.</p>
+    <button onclick="proximaTela(6)">Continuar</button>
+  </div>
+
+  <div id="tela5" class="screen">
+    <h2>Entendo...</h2>
+    <p>Mesmo assim, obrigado(a) por me ouvir. Meu carinho por você continua o mesmo.</p>
+  </div>
+
+  <div id="tela6" class="screen">
+    <h2>Última Pergunta</h2>
+    <p> Deixa eu te amar mais um pouc?</p>
+    <button onclick="alert('Você me fez sorrir ❤️')">Sim</button>
+    <button onclick="alert('Eu vou respeitar sua escolha 💔')">Não</button>
+  </div>
+
+  <script>
+    function proximaTela(numero) {
+      const telas = document.querySelectorAll('.screen');
+      telas.forEach(t => t.classList.remove('active'));
+
+      const proxima = document.getElementById('tela' + numero);
+      if (proxima) proxima.classList.add('active');
+    }
+
+    // Galeria
+    let imagens = [
+      "1.jpg",
+      "2.jpg",
+      "3.jpg",
+       "4.jpg",
+      "5.jpg"
+    ];
+
+    let indiceAtual = 0;
+
+    function mudarImagem(direcao) {
+      indiceAtual += direcao;
+      if (indiceAtual < 0) indiceAtual = imagens.length - 1;
+      if (indiceAtual >= imagens.length) indiceAtual = 0;
+
+      const img = document.getElementById("imagemGaleria");
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = imagens[indiceAtual];
+        img.style.opacity = 1;
+      }, 200);
+    }
+  </script>
+
+</body>
+</html>
